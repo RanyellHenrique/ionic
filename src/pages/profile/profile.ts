@@ -5,7 +5,6 @@ import { StorageService } from './../../services/storage.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-
 @IonicPage()
 @Component({
   selector: 'page-profile',
@@ -30,7 +29,14 @@ export class ProfilePage {
         this.cliente = response;
         this.getImageIfExists();
       },
-      error => {});
+      error => {
+        if (error.status == 403) {
+          this.navCtrl.setRoot('HomePage');
+        }
+      });
+  }
+  else {
+    this.navCtrl.setRoot('HomePage');
     }
   }
 
@@ -41,5 +47,4 @@ export class ProfilePage {
     },
     error => {});
   }
-
 }
